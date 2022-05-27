@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kos <kos@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 12:46:54 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/24 17:02:04 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/27 09:24:11 by kos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <readline/history.h>
+
+typedef struct s_list
+{	
+	char			*name;
+	char			*value;
+	struct s_list	*next;
+}	t_list;
 
 typedef struct s_var
 {
@@ -50,7 +57,7 @@ char	*ft_strcpy(char *src, size_t size);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	get_env_vars(char **envp, t_env *my_env);
-void	ft_print_env(t_env *my_env);
+void	print_env(t_env *my_env);
 void	ft_cd(t_env *env, char *path);
 char	*get_env_var_value(t_env *env, char *var_name);
 void	set_env_var_value(t_env *env, char *var_name, char *new_value);
