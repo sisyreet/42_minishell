@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_get_and_print.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kos <kos@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:11:56 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/24 17:08:30 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/27 14:50:12 by kos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,35 @@ void	get_env_vars(char **envp, t_env *env)
 	char	**temp;
 
 	i = 0;
+	env->head = malloc(sizeof(t_list));
+	if (!env->head)
+		ft_error("Memory allocation failed!\n");
 	while (envp[i])
-		i++;
-	env->num_of_env_vars = i;
-	env->env_vars = malloc(sizeof(t_var) * i + 1);
-	i = 0;
-	while (i < env->num_of_env_vars)
 	{
 		temp = ft_split(envp[i], '=');
-		env->env_vars[i].name = temp[0];
-		env->env_vars[i].value = temp[1];
-		free(temp);
+		if (i == 0)
+		{
+			env->head->name = temp[0];
+			env->head->value = temp[1];
+			env->head->next = NULL;
+		}
+		else
+		{
+			add_new_var(env->head, temp[0], temp[1]);
+		}
 		i++;
-	}
+		free (temp);
+	}		
 }
 
 void	print_env(t_env *env)
 {
-	int	i;
-
-	i = 0;
-	while (i < env->num_of_env_vars)
+	t_list *temp;
+	
+	temp = env->head;
+	while (temp)
 	{
-		write(1, env->env_vars[i].name, ft_strlen(env->env_vars[i].name));
-		write(1, "=", 1);
-		write(1, env->env_vars[i].value, ft_strlen(env->env_vars[i].value));
-		write(1, "\n", 1);
-		i++;
+		printf("%s=%s\n", temp->name, temp->value);
+		temp = temp->next;
 	}
 }

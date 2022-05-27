@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kos <kos@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 18:15:49 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/24 16:46:28 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/27 14:58:12 by kos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ void	print_no_such(char *path)
 
 void	ft_cd(t_env *env, char *path)
 {
-	char	*temp;
-
 	if (!chdir(path))
 	{
-		temp = get_env_var_value(env, "PWD");
-		set_env_var_value(env, "OLDPWD", temp);
+		set_env_var_value(env, "OLDPWD", get_env_var_value(env, "PWD"));
 		set_env_var_value(env, "PWD", path);
 	}
 	else
