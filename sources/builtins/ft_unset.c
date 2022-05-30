@@ -6,7 +6,7 @@
 /*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:32:02 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/30 15:05:15 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:15:14 by sisyreet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	delete_last_node(t_list *node)
 {
+	free(node->next->name);
+	free(node->next->value);
 	free(node->next);
 	node->next = NULL;
 }
@@ -23,6 +25,8 @@ void	delete_mid_node(t_list *node)
 	t_list	*temp;
 
 	temp = node->next->next;
+	free(node->next->name);
+	free(node->next->value);
 	free(node->next);
 	node->next = temp;
 }
