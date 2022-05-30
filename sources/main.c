@@ -6,24 +6,39 @@
 /*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:07:07 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/24 17:07:12 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/30 12:06:12 by sisyreet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	check_str(char *line, t_env *env)
+void	run_command(char *line, t_env *env)
 {
+	if (!ft_strncmp("pwd", line, 3) && ft_strlen(line) == 3)
+		ft_pwd(env);
+	if (!ft_strncmp("cd ", line, 3))
+		ft_cd(env, &line[3]);
 	if (!ft_strncmp("env", line, 3))
 		print_env(env);
-	if (!ft_strncmp("exit", line, 4))
-		ft_exit (0);
-	if (!ft_strncmp("cd", line, 2))
-		ft_cd(env, &line[3]);
-	if (!ft_strncmp("echo -n ", line, 8))
-		ft_echo(&line[8], 1);
-	else if (!ft_strncmp("echo ", line, 5))
-		ft_echo(&line[5], 0);
+	
+}
+
+int	is_command(char *line)
+{
+	if (!ft_strncmp("env", line, 3))
+		return (1);
+	if (!ft_strncmp("exit", line, 4) && ft_strlen(line) == 4)
+		return (1);
+	if (!ft_strncmp("cd ", line, 3))
+		return (1);
+	if (!ft_strncmp("echo", line, 4))
+		return (1);
+	if (!ft_strncmp("export ", line, 7))
+		return (1);
+	if (!ft_strncmp("pwd", line, 3) && ft_strlen(line) == 3)
+		return (1);
+	if (!ft_strncmp("unset ", line, 6))
+		return (1);
 	return (0);
 }
 
@@ -32,8 +47,14 @@ int	prompt(t_env *env, char *line)
 	while (1)
 	{
 		line = readline("minishell> ");
-		if (check_str(line, env))
-			return (1);
+		if (is_command(line))
+			run_command(line, env);
+		else
+		{
+			write(2, "command not found: ", 19);
+			write(2, line, ft_strlen(line));
+			write(2, "\n", 1);
+		}
 		add_history(line);
 		free(line);
 	}
