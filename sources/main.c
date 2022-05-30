@@ -6,7 +6,7 @@
 /*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:07:07 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/30 12:06:12 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:31:29 by sisyreet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	run_command(char *line, t_env *env)
 		ft_cd(env, &line[3]);
 	if (!ft_strncmp("env", line, 3))
 		print_env(env);
-	
+	if (!ft_strncmp("export ", line, 7))
+		ft_export(env, "kostya", "molodec");
+	if (!ft_strncmp("export2 ", line, 8))
+		ft_export(env, "kostya", "azazaza");
 }
 
 int	is_command(char *line)
@@ -34,6 +37,8 @@ int	is_command(char *line)
 	if (!ft_strncmp("echo", line, 4))
 		return (1);
 	if (!ft_strncmp("export ", line, 7))
+		return (1);
+	if (!ft_strncmp("export2 ", line, 8))
 		return (1);
 	if (!ft_strncmp("pwd", line, 3) && ft_strlen(line) == 3)
 		return (1);

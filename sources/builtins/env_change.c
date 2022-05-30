@@ -6,7 +6,7 @@
 /*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:13:21 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/30 11:46:24 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:25:08 by sisyreet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	set_env_var_value(t_env *env, char *var_name, char *new_value)
 void	add_new_var(t_list *head, char *var_name, char *value)
 {
 	t_list	*ptr;
-	t_list	*temp;
+	t_list	*new_node;
 
 	ptr = head;
-	temp = malloc(sizeof(t_list));
-	if (!temp)
+	new_node = malloc(sizeof(t_list));
+	if (!new_node)
 		ft_error("Memory allocation failed!\n");
-	temp->name = var_name;
-	temp->value = value;
-	temp->next = NULL;
+	new_node->name = var_name;
+	new_node->value = value;
+	new_node->next = NULL;
 	while (ptr->next)
 		ptr = ptr->next;
-	ptr->next = temp;
+	ptr->next = new_node;
 }

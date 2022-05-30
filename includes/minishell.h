@@ -6,7 +6,7 @@
 /*   By: sisyreet <sisyreet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 12:46:54 by sisyreet          #+#    #+#             */
-/*   Updated: 2022/05/30 11:43:11 by sisyreet         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:29:13 by sisyreet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	get_env_vars(char **envp, t_env *my_env);
 void	print_env(t_env *my_env);
 void	ft_cd(t_env *env, char *path);
 int		ft_pwd(t_env *env);
+int		ft_export(t_env *env, char *var_name, char *value);
 void	add_new_var(t_list *head, char *var_name, char *value);
 char	*get_env_var_value(t_env *env, char *var_name);
 void	set_env_var_value(t_env *env, char *var_name, char *new_value);
